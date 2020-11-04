@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block bankroll %}
+    {{bankroll}} €
+{% endblock %}
+
+{% block alert %}
+<div class="alert alert-info alert-dismissible fade show" role="alert">
+          <strong>{{msg}}</strong>
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+</div>
+{% endblock %}
+
+{% block body %}
+<div class="container">
+    <style type="text/css" >
+        img {
+            width: 60px;
+            border-radius: 8px 8px 8px 8px;
+            margin: 0 auto;
+        }
+
+        img:hover {
+            border-radius: 8px 8px 8px 8px;
+            margin: 0 auto;
+        }
+    </style>
+    <h3>Jeu</h3>
+    <div class="row" >
+        {% for deck in decks %}
+        <div class="col-1 mb-2" ><img src="/static/cards_deck/{{deck}}.svg"></div>
+        {% endfor %}
+    </div>
+
+    <h5 class="mt-5" > Votre main défintive  </h5>
+    <div class="row" >
+        {% for draw in final_draws %}
+        <div class="col-1 mb-2" ><img src="/static/cards_deck/{{draw}}.svg"></div>
+        {% endfor %}
+    </div>
+
+
+        <div class="row" >
+
+            <div class="col text-center" >
+                <form action="/start_part" method="POST">
+                    <button type="submit" name="game_again" class="btn-lg btn-primary text-center mt-3 mb-2">Rejouer</button>
+                </form>
+            </div>
+
+            <div class="col text-center" >
+                <form action="/" method="POST">
+                    <button type="submit" class="btn-lg btn-primary text-center mt-3 mb-2">Quitter</button>
+                </form>
+            </div>
+
+        </div>
+</div>
+{% endblock %}

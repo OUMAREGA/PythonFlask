@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block bankroll %}
+    {{bankroll}} €
+{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h3 class="text-white" >Bienvenu dans votre jeu de Video Poker</h3>
+    <h3><a href="/start_part">Play</a></h3>
+</div>
+{% endblock %}
+
+{% block alert %}
+    {% if resultat > 0 %}
+        {% if resultat > bankroll %}
+            <div class="alert alert-info alert-dismissible fade show" role="alert">
+                      <strong>Vous avez perdu {{resultat-bankroll}} €</strong>
+                      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+            </div>
+        {% else %}
+            <div class="alert alert-info alert-dismissible fade show" role="alert">
+                      <strong>Vous avez gagné {{bankroll - resultat}} € par rapport à votre bankroll de départ : {{resultat}} €</strong>
+                      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+            </div>
+        {% endif %}
+    {% endif %}
+{% endblock %}
