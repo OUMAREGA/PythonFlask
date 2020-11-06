@@ -1,4 +1,7 @@
+
 # PythonVideoPoker
+To run video poker in terminal use app.py in ./Casino
+To run flask use ./app.py 
 # A Python Training - Les bases
 
 This is the practical cases for Python training I provide. Intended for french
@@ -82,3 +85,5 @@ ensemble. Il s'agit de :
 
 Durant la formation, des ressources complémentaires peuvent être disponibles
 [sur le partage suivant](https://goo.gl/lRyzMZ).
+
+# PythonFlask
