@@ -4,7 +4,7 @@ __pycache__/
 *$py.class
 
 
-workbooks/PATH/*.csv
+workbooks/PATH/database.csv
 # C extensions
 *.so
 
