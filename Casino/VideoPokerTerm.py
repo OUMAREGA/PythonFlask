@@ -107,7 +107,7 @@ class VideoPokerTerm:
             remaining = random.sample(self.deck, 5 - len(jeu))
             for item in remaining:
                 jeu.append(item)
-
+        print("Votre main final {}".format(jeu))
         return jeu
 
     def machine(self):
@@ -177,11 +177,11 @@ class VideoPokerTerm:
         for i in range(0, len(duplicates_card)):
             if duplicates_card[i] != 1:
                 if duplicates_card[i] == 2:  # paire or double paire
-                    msg = "Bravo vous avez obtenu un paire, 0 gain 0 perte"
+                    msg = "Bravo vous avez obtenu une paire, 0 gain 0 perte"
                     multiply += 1
                     if multiply == 2:
                         multiply += 1
-                        msg = "Bien , vous avez un douple paire"
+                        msg = "Bien , vous avez une douple paire"
 
         for item in card_list:
 
@@ -240,12 +240,17 @@ class VideoPokerTerm:
 
     def video_poker(self):
         """
-
+        Run the script to game
         """
         self.init_deck()
         print("**************Bienvenue dans votre jeu video poker**************")
         print("* Inserer votre bankroll                                       *")
+
         bankroll = int(input())
+
+        while bankroll <10 :
+            print("La bankroll doit etre minimum égale à 10 €")
+            bankroll = int(input())
 
         resultat = bankroll
 
@@ -255,6 +260,11 @@ class VideoPokerTerm:
 
             print("* Saississez votre mise                                      *")
             mise = int(input())
+
+            while mise > bankroll:
+                print('La mise ne peut etre supérieur à votre bankroll, réessayer !')
+                mise = int(input())
+
             bankroll, msg = self.partie(bankroll, mise)
             print("Votre nouveau bankroll {} €".format(bankroll))
             print(msg)
@@ -263,8 +273,10 @@ class VideoPokerTerm:
                 print("Voulez-vous continuer y/n")
                 bol = input()
 
-                if bol == 'n':
+                if bol == 'n' or bol == 'N':
                     response = False
+            else:
+                print("Vous n'avez pas d'argent dans votre bankroll")
 
         if resultat > bankroll:
             print("Vous avez perdu {} €".format(resultat - bankroll))
