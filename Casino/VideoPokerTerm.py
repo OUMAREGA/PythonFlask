@@ -2,7 +2,7 @@ import pandas as pd
 import random
 
 
-class VideoPoker:
+class VideoPokerTerm:
     def __init__(self):
         self.deck = []
         self.bankroll = 0
@@ -23,56 +23,56 @@ class VideoPoker:
     def decks(self):
         """
         Get deck
-        @return:
+        @return: 
         """
         return self.deck
 
     def get_bankroll(self):
         """
-        Get bankroll
-        @return:
+
+        @return: 
         """
         return self.bankroll
 
     def get_mise(self):
         """
-        Get mise
-        @return:
+
+        @return: 
         """
         return self.mise
 
     def get_resultat(self):
         """
-        Get result
-        @return:
+
+        @return: 
         """
         return self.resultat
 
     def set_bankroll(self, value):
         """
-        Set Bankroll
-        @param value:
+
+        @rtype: object
         """
         self.bankroll = value
 
     def set_mise(self, value):
-        """
-        Set mise
-        @param value:
-        """
         self.mise = value
 
     def set_resultat(self, value):
+        """
+
+        @param value:
+        """
         self.resultat = value
 
     def premier_tirage(self):
         """
-        First draw and the player can choose to keep or not thoose cards
+
         @return:
         """
         tirage = random.sample(self.deck, 5)
 
-        for item in tirage:
+        for item in self.deck:
             self.deck.remove(item)
 
         return tirage, self.deck
@@ -99,7 +99,7 @@ class VideoPoker:
 
     def deuxieme_tirage(self, jeu):
         """
-        If the player remove certains carsdd n his hand, a seconde draw is done to complete hand
+
         @param jeu:
         @return:
         """
@@ -110,12 +110,15 @@ class VideoPoker:
 
         return jeu
 
-    def machine(self, choice):
+    def machine(self):
         """
-        Get the complete hand
-        @param choice:
+
         @return:
         """
+        my_tuple = self.premier_tirage()
+        first = my_tuple[0]
+        print("Le premier tirage {}".format(first))
+        choice = self.choix_carte(first)
         jeu = self.deuxieme_tirage(choice)
 
         return jeu
@@ -174,11 +177,11 @@ class VideoPoker:
         for i in range(0, len(duplicates_card)):
             if duplicates_card[i] != 1:
                 if duplicates_card[i] == 2:  # paire or double paire
-                    msg = " vous avez obtenu une paire, 0 gain O perte"
+                    msg = "Bravo vous avez obtenu un paire, 0 gain 0 perte"
                     multiply += 1
                     if multiply == 2:
                         multiply += 1
-                        msg = "Bien , vous avez une douple paire"
+                        msg = "Bien , vous avez un douple paire"
 
         for item in card_list:
 
@@ -221,27 +224,51 @@ class VideoPoker:
         multiply, msg = self.is_win(jeu)
         return multiply * mise, msg
 
-    def partie(self, hand):
+    def partie(self, bankroll, mise):
         """
 
-        @param hand:
+        @param bankroll:
+        @param mise:
         @return:
         """
-        self.bankroll -= self.mise
-        gain, msg = self.calcul_gain(hand, self.mise)
-        self.bankroll += gain
+        jeu = self.machine()
+        bankroll -= mise
+        gain, msg = self.calcul_gain(jeu, mise)
+        bankroll += gain
 
-        return self.bankroll, msg
+        return bankroll, msg
 
-    def video_poker(self, hand):
+    def video_poker(self):
         """
 
-        @param hand:
-        @return:
         """
-        if self.resultat == 0:
-            self.resultat = self.bankroll
+        self.init_deck()
+        print("**************Bienvenue dans votre jeu video poker**************")
+        print("* Inserer votre bankroll                                       *")
+        bankroll = int(input())
 
-        self.bankroll, msg = self.partie(hand)
+        resultat = bankroll
 
-        return self.resultat, self.bankroll, msg
+        response = True
+
+        while response and bankroll > 0:
+
+            print("* Saississez votre mise                                      *")
+            mise = int(input())
+            bankroll, msg = self.partie(bankroll, mise)
+            print("Votre nouveau bankroll {} €".format(bankroll))
+            print(msg)
+
+            if bankroll > 0:
+                print("Voulez-vous continuer y/n")
+                bol = input()
+
+                if bol == 'n':
+                    response = False
+
+        if resultat > bankroll:
+            print("Vous avez perdu {} €".format(resultat - bankroll))
+        else:
+            print("Vous avez gagné {} €".format(bankroll - resultat))
+
+        print('Bye à la prochaine')

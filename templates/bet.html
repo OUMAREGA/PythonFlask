@@ -18,20 +18,21 @@
             margin: 0 auto;
         }
     </style>
-    <h3>Jeu</h3>
+    <h3 class="mt-2 text-white" >Jeu</h3>
     <div class="row" >
         {% for deck in decks %}
         <div class="col-1 mb-2" ><img src="/static/cards_deck/{{deck}}.svg"></div>
         {% endfor %}
     </div>
 
-    <h5 class="mt-5" > Sélectionnez les cartes que vous gardez dans votre main  </h5>
+    <h5 class="mt-5 text-white" > Sélectionnez les cartes que vous gardez dans votre main  </h5>
     <form action="/game" method="POST">
         <div class="row" >
             {% for hand in hands %}
-            <div class="col-2 mb-2" ><img src="/static/cards_deck/{{hand}}.svg"> <input type="checkbox"  name="{{hand}}"> </div>
+            <div class="col-2 mb-2" ><label><img src="/static/cards_deck/{{hand}}.svg"> </label><input type="checkbox"  name="{{hand}}"> </div>
             {% endfor %}
-            <div class="col text-center" > <button type="submit" class="btn btn-primary text-center mt-3 mb-2">Envoyer</button></div>
+            <div class="w-100" ></div>
+            <div class="col text-center" > <button type="submit" class="btn btn-primary text-center mt-3 mb-2">Valider</button></div>
         </div>
     </form>
 

@@ -22,14 +22,14 @@
   border-color: #EEEEEE #888888 #888888 #EEEEEE;
 }
     </style>
-    <h3>Jeu</h3>
+    <h3 class="text-white mt-2">Jeu</h3>
     <div class="row" >
         {% for deck in decks %}
         <div class="col-1 mb-2" ><img src="/static/cards_deck/{{deck}}.svg"></div>
         {% endfor %}
     </div>
 
-    <h5 class="mt-5" > Démarrer la partie  </h5>
+    <h5 class="mt-5 text-white" > Démarrer la partie  </h5>
     <form action="/bet" method="POST">
         <div class="row" >
             {% if not game_again %}
@@ -57,8 +57,10 @@
                       </div>
                 </div>
             </div>
+
             <div class="w-100" ></div>
-            <div class="col text-center" > <button type="submit" class="btn btn-primary text-center mt-3 mb-2">Envoyer</button></div>
+
+            <div class="col text-center" > <button type="submit" class="btn btn-primary text-center mt-3 mb-2">Jouer</button></div>
         </div>
     </form>
 

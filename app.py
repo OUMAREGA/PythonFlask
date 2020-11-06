@@ -19,6 +19,7 @@ def start_part():
         game_again = True
     else:
         vp.set_bankroll(0)
+        vp.set_resultat(0)
 
     return render_template('start_part.html', decks=vp.decks(), game_again=game_again, bankroll=vp.get_bankroll())
 
@@ -27,12 +28,32 @@ def bet():
     if request.method == 'POST':
 
         if len(request.form) == 2:
-            bankroll = int(request.form['bankroll'])
-            vp.set_bankroll((bankroll))
+            try:
+                bankroll = int(request.form['bankroll'])
+                if bankroll < 10:
+                    msg = 'La valeur minimale de votre bankroll doit être supérieur 10 '
+                    return render_template('error.html', msg=msg)
+                vp.set_bankroll((bankroll))
+            except ValueError:
+                msg = 'Oups, attends une valeur entiére'
+                return render_template('error.html', msg = msg)
 
-        mise = int(request.form['mise'])
+        try:
+            mise = int(request.form['mise'])
+            if mise < 0:
+                msg = 'La valeur minimale à miser doit être supérieur 0 '
+                return render_template('error.html', msg=msg)
+            vp.set_mise(mise)
+        except ValueError:
+            msg = 'Oups, attends une valeur entiére'
+            return render_template('error.html', msg=msg)
 
-        vp.set_mise(mise)
+
+
+
+        if vp.get_bankroll() < vp.get_mise():
+            msg = 'Oups, vous avez saisie une mise superieur à votre bankroll'
+            return render_template('error.html', msg = msg)
 
         hands, decks = vp.premier_tirage()
 
