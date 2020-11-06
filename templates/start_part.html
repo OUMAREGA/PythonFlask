@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+{% block bankroll %}
+    {{bankroll}} €
+{% endblock %}
+
+{% block body %}
+<div class="container">
+    <style type="text/css" >
+        img {
+            width: 60px;
+            border-radius: 8px 8px 8px 8px;
+            margin: 0 auto;
+        }
+
+        img:hover {
+            border-radius: 8px 8px 8px 8px;
+            margin: 0 auto;
+        }
+        .cadre {
+  border: 1px solid;
+  border-color: #EEEEEE #888888 #888888 #EEEEEE;
+}
+    </style>
+    <h3 class="text-white mt-2">Jeu</h3>
+    <div class="row" >
+        {% for deck in decks %}
+        <div class="col-1 mb-2" ><img src="/static/cards_deck/{{deck}}.svg"></div>
+        {% endfor %}
+    </div>
+
+    <h5 class="mt-5 text-white" > Démarrer la partie  </h5>
+    <form action="/bet" method="POST">
+        <div class="row" >
+            {% if not game_again %}
+              <div class="col" >
+                <div class="input-group mb-3">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">Bankroll</span>
+                      </div>
+                      <input type="text" name="bankroll" class="form-control" aria-label="Amount (to the nearest dollar)">
+                      <div class="input-group-append">
+                        <span class="input-group-text">€</span>
+                      </div>
+                </div>
+              </div>
+            {% endif %}
+
+            <div class="col" >
+                <div class="input-group mb-3">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">Mise</span>
+                      </div>
+                      <input type="text" name="mise" class="form-control" aria-label="Amount (to the nearest dollar)">
+                      <div class="input-group-append">
+                        <span class="input-group-text">€</span>
+                      </div>
+                </div>
+            </div>
+
+            <div class="w-100" ></div>
+
+            <div class="col text-center" > <button type="submit" class="btn btn-primary text-center mt-3 mb-2">Jouer</button></div>
+        </div>
+    </form>
+
+</div>
+{% endblock %}
